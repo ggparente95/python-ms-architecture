@@ -1,0 +1,8 @@
+flask
+flask_sqlalchemy
+flask-cors
+pytest
+cerberus
+flask-migrate
+gunicorn==20.0.4
+pytest_mock

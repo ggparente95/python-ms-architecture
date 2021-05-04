@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  ms-flask:
+    build: ./ms-flask
+    image: ms-flask
+    container_name: ms-flask
+    command: python run.py run -h 0.0.0.0
+    ports:
+      - 5001:5000
+    env_file:
+      - ./ms-flask/.env.dev
+    networks:
+      - gregosys_test
+
+networks:
+    gregosys_test:
