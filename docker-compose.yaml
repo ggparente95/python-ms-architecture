@@ -6,12 +6,52 @@ services:
     image: ms-flask
     container_name: ms-flask
     command: python run.py run -h 0.0.0.0
+    volumes:
+      - ./ms-flask/:/usr/src/backend/
     ports:
       - 5001:5000
     env_file:
       - ./ms-flask/.env.dev
     networks:
-      - gregosys_test
+      - python-ms-architecture
+    depends_on:
+      - db_rrhh
+  
+  db_rrhh:
+    image: postgres:12.0-alpine
+    container_name: db_rrhh
+    volumes:
+      - ./postgres_data_rrhh:/var/lib/postgresql/data/
+    ports:
+      - '5433:5432'
+    environment:
+      - POSTGRES_USER=rrhhuser
+      - POSTGRES_PASSWORD=rrhh12345
+      - POSTGRES_DB=db_rrhh
+      - TZ=UTC+3
+      - PGTZ=UTC+3
+    networks:
+      - python-ms-architecture
+  
+  pgAdmin:
+    restart: always
+    container_name: pgAdmin
+    image: dpage/pgadmin4
+    ports:
+      - "4202:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: theadmin123
+    volumes:
+      - pgadmin_test:/var/lib/pgadmin
+    logging:
+      driver: none
+    networks:
+      - python-ms-architecture
 
 networks:
-    gregosys_test:
+    python-ms-architecture:
+
+volumes:
+  pgadmin_test:
+  postgres_data:

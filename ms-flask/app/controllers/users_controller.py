@@ -1,14 +1,12 @@
 import json
 from flask import request, Blueprint, jsonify
+from app.services.users_service import get_users
+
 
 users = Blueprint('users', __name__)
 
-HARDCODED_USERS = [
-    {"name": "Pablo", "surname": "Rodriguez"},
-    {"name": "Juan", "surname": "Perez"},
-    {"name": "Martin", "surname": "Rodriguez"}
-]
 
 @users.route('/users', methods=['GET'])
 def get_all_users():
-    return jsonify(HARDCODED_USERS)
+    users = get_users()
+    return jsonify(users), 200
