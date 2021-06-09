@@ -3,6 +3,7 @@ import os
 
 SECRET_KEY = 'secretpass123'
 ENVIRONMENT = os.getenv('FLASK_ENV')
+MESSAGE_CERBERUS = "Invalid request parameters"
 
 
 class ConfigDev(object):

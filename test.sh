@@ -1,0 +1,1 @@
+pytest --cov=ms-flask ./ms-flask

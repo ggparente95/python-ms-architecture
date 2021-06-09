@@ -6,10 +6,8 @@ class Area(db.Model):
     """
     __tablename__ = 'areas'
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.Enum('Ventas', 'Servicio Tecnico',
-                               'Administracion', 'Ingenieria',
-                               'Calidad', 'Compras', 'Gerencia',
-                               name='myenum'), unique=True)
+    name = db.Column(db.Enum('Management', 'Sales', 'Gerencia',
+                             name='myenum'), unique=True)
 
     users = db.relationship('User',
                             backref='area',

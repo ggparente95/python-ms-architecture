@@ -1,7 +1,7 @@
 import os
 import pytest
 from app.builder import ApiBuilder
-#from app.database import db as _db
+from app.database import db as _db
 from app.config import ConfigTest
 
 
@@ -23,7 +23,7 @@ def client(request):
     request.addfinalizer(teardown)
     return app.test_client()
 
-'''
+
 @pytest.fixture(scope='session')
 def db(client, request):
     """Session-wide test database."""
@@ -62,11 +62,10 @@ def session(db, request, mocker):
 @pytest.fixture
 def token():
     return Usuario('x', 'x', 'x', 'x1', True, None, 'x1').\
-        generar_token(1, {'read': '1'})
+        generate_token(1, {'read': '1'})
 
 
 @pytest.fixture
 def token_normal():
     return Usuario('x', 'x', 'x', 'x2', False, None, 'x2').\
-        generar_token(2, {'read': '1'})
-'''
+        generate_token(2, {'read': '1'})
