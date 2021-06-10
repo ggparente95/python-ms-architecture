@@ -9,13 +9,28 @@ services:
     volumes:
       - ./ms-flask/:/usr/src/backend/
     ports:
-      - 5001:5000
+      - 5000:5000
     env_file:
       - ./ms-flask/.env.dev
     networks:
       - python-ms-architecture
     depends_on:
       - db_rrhh
+  
+  ms-django:
+    build: ./ms-django/app
+    container_name: ms-django
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./ms-django/app/:/usr/src/app/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./ms-django/.env.dev
+    networks:
+      - python-ms-architecture
+    depends_on:
+      - db_transactions
   
   db_rrhh:
     image: postgres:12.0-alpine
@@ -30,6 +45,18 @@ services:
       - POSTGRES_DB=db_rrhh
       - TZ=UTC+3
       - PGTZ=UTC+3
+    networks:
+      - python-ms-architecture
+  
+  db_transactions:
+    image: postgres:12.0-alpine
+    container_name: db_transactions
+    volumes:
+      - postgres_data_transactions:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=django_db_transactions
+      - POSTGRES_PASSWORD=django_db_transactions
+      - POSTGRES_DB=db_transactions
     networks:
       - python-ms-architecture
   
@@ -54,4 +81,5 @@ networks:
 
 volumes:
   pgadmin_test:
-  postgres_data:
+  postgres_data_rrhh:
+  postgres_data_transactions:

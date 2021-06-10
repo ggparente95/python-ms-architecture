@@ -4,7 +4,6 @@ flask-cors
 pytest
 pytest-cov
 cerberus
-functools
 flask-migrate
 gunicorn==20.0.4
 psycopg2==2.8.4
